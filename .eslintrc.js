@@ -19,6 +19,7 @@ module.exports = {
         "react"
     ],
     "rules": {
-      'react/prefer-stateless-function': 'off',
+      "linebreak-style": 0,
+      "react/prefer-stateless-function": "off",
     }
 };
