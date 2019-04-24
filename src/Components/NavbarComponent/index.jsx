@@ -28,9 +28,9 @@ class NavbarComponent extends Component {
             />
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link className="nav-link ml-3" to="/spelare">Spelare</Nav.Link>
-            <Nav.Link className="nav-link ml-3" to="/tabell">Tabell</Nav.Link>
-            <Nav.Link className="nav-link ml-3" to="/resultat">Resultat</Nav.Link>
+            <NavLink className="nav-link ml-3" to="/spelare">Spelare</NavLink>
+            <NavLink className="nav-link ml-3" to="/tabell">Tabell</NavLink>
+            <NavLink className="nav-link ml-3" to="/resultat">Resultat</NavLink>
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Sök" className="mr-sm-2" />
