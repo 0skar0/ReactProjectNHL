@@ -8,6 +8,7 @@ import Standings from './Screens/Standings';
 import NavbarComponent from './Components/NavbarComponent';
 import FooterComponent from './Components/FooterComponent';
 import './App.css';
+import Homepage from './Screens/Homepage';
 
 class App extends Component {
   render() {
