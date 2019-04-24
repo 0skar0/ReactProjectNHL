@@ -5,7 +5,7 @@ class Standings extends Component {
   render() {
     return (
       <div className="wrapper">
-        <FooterComponent />
+        
       </div>
     );
   }
