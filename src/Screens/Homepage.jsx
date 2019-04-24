@@ -4,7 +4,7 @@ import FooterComponent from '../Components/FooterComponent';
 class Homepage extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="wrapper">
         <FooterComponent />
       </div>
     );
