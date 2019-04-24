@@ -5,7 +5,7 @@ class Results extends Component {
   render() {
     return (
       <div className="wrapper">
-        <FooterComponent />
+        
       </div>
     );
   }
