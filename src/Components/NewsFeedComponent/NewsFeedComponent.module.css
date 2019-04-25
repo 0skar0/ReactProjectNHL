@@ -1,0 +1,10 @@
+.newsFeedWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 540px;
+}
+
+.newsFeedWrapper h1 {
+  margin-top: 15px;
+}
