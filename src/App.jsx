@@ -18,7 +18,7 @@ class App extends Component {
           <Router>
             <NavbarComponent />
             <Switch>
-              <Route path="/" component={Homepage} />
+              <Route exact path="/" component={Homepage} />
               <Route path="/spelare/:person.id" component={Player} />
               <Route path="/spelare" component={Players} />
               <Route path="/resultat" component={Results} />
