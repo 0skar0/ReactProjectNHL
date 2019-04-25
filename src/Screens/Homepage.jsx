@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import GameScheduleComponent from '../Components/GameScheduleComponent';
+
+import NewsFeedComponent from '../Components/NewsFeedComponent';
+
 
 class Homepage extends Component {
   render() {
     return (
-      <div className="wrapper">
+      <Fragment>
         <GameScheduleComponent />
-      </div>
+        <NewsFeedComponent />
+      </Fragment>
     );
   }
 }
