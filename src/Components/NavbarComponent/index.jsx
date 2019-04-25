@@ -20,13 +20,13 @@ class NavbarComponent extends Component {
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Navbar.Brand>
+          <NavLink className="navbar-brand" to="/">
             <img
               src={logo}
               className={styles.logoStyle}
               alt="Svenskifierad NHL-logotyp"
             />
-          </Navbar.Brand>
+          </NavLink>
           <Nav className="mr-auto">
             <NavLink className="nav-link ml-3" to="/spelare">Spelare</NavLink>
             <NavLink className="nav-link ml-3" to="/tabell">Tabell</NavLink>
