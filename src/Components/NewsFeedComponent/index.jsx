@@ -42,7 +42,7 @@ class NewsFeedComponent extends Component {
       <div className={styles.newsFeedWrapper}>
         {news.items.map((article, i) => (
           <div key={article.guid}>
-            {Object.values(news.items[i].enclosure).includes('https://svenskafanscdn.blob.core.windows.net/image-7/null.jpg') ? <img src={backupPic} alt="Bild kopplat till nyheten" /> : <img src={news.items[i].enclosure.link} alt="Bild kopplat till nyheten" />}
+            {(Object.values(news.items[i].enclosure).includes('https://svenskafanscdn.blob.core.windows.net/image-7/null.jpg') || !news.items[i].enclosure.link) ? <img src={backupPic} alt="Bild kopplat till nyheten" /> : <img src={news.items[i].enclosure.link} alt="Bild kopplat till nyheten" />}
             <h1>
               <a rel="noopener noreferrer" target="_blank" href={news.items[i].guid + aspx}>
                 {news.items[i].title}
