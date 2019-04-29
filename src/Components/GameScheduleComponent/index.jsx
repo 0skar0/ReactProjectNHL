@@ -41,31 +41,42 @@ class GameScheduleComponent extends Component {
   //     });
   // }
 
+
   componentDidMount() {
-    axios.get('https://statsapi.web.nhl.com/api/v1/schedule?startDate=2019-04-26&endDate=2019-04-28')
+    const today = new Date();
+    const res = today.toISOString().slice(0, 10).replace(/-/g, '-');
+    const days = new Date();
+    days.setDate(days.getDate() - 5);
+    const resDays = days.toISOString().slice(0, 10).replace(/-/g, '-');
+    console.log(res);
+    console.log(resDays);
+    axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${resDays}&endDate=${res}`)
       .then((res) => {
         this.setState({
           dates: res.data,
-          test: res.data.dates[0].games,
-          team: res.data.dates[0].games[0].teams.home.team.name,
-          teamID: res.data.dates[0].games[0].teams.home.team.id,
+          home: res.data.dates[0].games[0].teams.home.team.name,
+          homeID: res.data.dates[0].games[0].teams.home.team.id,
+          away: res.data.dates[0].games[0].teams.away.team.name,
+          awayID: res.data.dates[0].games[0].teams.away.team.id,
+          // teamID: res.data.dates[0].games[1].teams.home.team.id,
+        });
+      });
+    axios.get('https://statsapi.web.nhl.com/api/v1/teams/')
+      .then((res) => {
+        this.setState({
+          data: res.data.teams,
         });
       });
   }
 
   render() {
     const {
-      dates, home, away, test, team,
+      dates, home, away, homeID, awayID, teamID, data,
     } = this.state;
 
+
     console.log(dates);
-    console.log(test);
-    console.log(team);
-
-    const teamID = '15';
     const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamID}-dark.svg`;
-    console.log(teamLogo);
-
     return (
       <div className={styles.container}>
         <Slider {...this.settings}>
