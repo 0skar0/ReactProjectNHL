@@ -1,29 +1,19 @@
-import { combineReducers } from 'redux';
-
-const initialState = {
-  users: [],
-};
-
-
-const root = (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_USER':
-      return {
+    case 'ADD_PLAYERS':
+      return ({
         ...state,
-        users: [...state.users, action.payload],
-      };
-
-    case 'LOAD_USERS':
-      return {
+        players: [
+          ...action.players,
+        ],
+      });
+    case 'FETCH_ERROR':
+      return ({
         ...state,
-        users: [...state.users, action.payload],
-      };
+        error: action.error,
+      });
 
     default:
       return state;
   }
 };
-
-export default combineReducers({
-  root,
-});
