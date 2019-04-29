@@ -33,7 +33,7 @@ class PlayersTableComponent extends Component {
   getLogo = (cell) => {
     const source = 'https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-';
     return (
-      <img style={{ width: 25, height: 25 }} src={`${source + cell}-dark.svg`} alt="" />
+      <img style={{ width: 25, height: 25 }} src={`${source + cell}-dark.svg`} alt="Laglogotyp" />
     );
   }
 
