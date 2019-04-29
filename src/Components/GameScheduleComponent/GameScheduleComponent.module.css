@@ -23,31 +23,31 @@
   flex-direction: column;
 }
 
-.cardbox img {
-  width: 10%;
-  height: 90%;
+.cardbox img, .card img {
+  width: 29px;
+  height: 28px;
   margin-top: -2px;
   margin-right: 15px;
+  margin-left: 10px;
 }
 
 .cardbox {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .card h4 {
   text-transform: uppercase;
   color: #3E4042;
   font-weight: 900;
-  font-size: 22px;
+  font-size: 19px;
   margin-right: 20px;
 }
 
 .card:hover {
   border-top: 6px solid #0080AD;
   cursor: pointer;
-  transform: translateY(0px);
 }
 
 .card p {

@@ -7,14 +7,13 @@ class GameScheduleComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: null,
     };
 
     this.settings = {
       dots: false,
       infinite: false,
       speed: 500,
-      slidesToShow: 4,
+      slidesToShow: 3,
       slidesToScroll: 3,
       arrows: false,
       responsive: [
@@ -30,100 +29,57 @@ class GameScheduleComponent extends Component {
     };
   }
 
+  // componentDidMount() {
+  //   axios.get('https://nhl-score-api.herokuapp.com/api/scores/latest')
+  //     .then((res) => {
+  //       this.setState({
+  //         dates: res.data.games,
+  //         home: res.data.games[0].teams.home,
+  //         away: res.data.games[0].teams.away,
+  //       });
+  //       // console.log(result.dates[0].games[1].teams.home.team.name);
+  //     });
+  // }
+
   componentDidMount() {
-    axios.get('https://statsapi.web.nhl.com/api/v1/schedule/')
+    axios.get('https://statsapi.web.nhl.com/api/v1/schedule?startDate=2019-04-26&endDate=2019-04-28')
       .then((res) => {
-        const result = res.data;
-        this.setState({ result });
+        this.setState({
+          dates: res.data,
+          test: res.data.dates[0].games,
+          team: res.data.dates[0].games[0].teams.home.team.name,
+          teamID: res.data.dates[0].games[0].teams.home.team.id,
+        });
       });
   }
 
-
   render() {
+    const {
+      dates, home, away, test, team,
+    } = this.state;
+
+    console.log(dates);
+    console.log(test);
+    console.log(team);
+
+    const teamID = '15';
+    const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamID}-dark.svg`;
+    console.log(teamLogo);
+
     return (
       <div className={styles.container}>
         <Slider {...this.settings}>
           <div>
             <div className={styles.card}>
               <div className={styles.cardbox}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toronto_Maple_Leafs_Logo_1939_-_1967.svg/124px-Toronto_Maple_Leafs_Logo_1939_-_1967.svg.png" alt="logo" />
-                <h4>Tor</h4>
-                <h4>5</h4>
+                <img src="https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-6-dark.svg" alt="logo" />
+                <h4>{home}</h4>
+                <h4>-</h4>
               </div>
               <div className={styles.cardbox}>
-                <img src="https://seeklogo.com/images/B/boston-bruins-logo-41FD986EBD-seeklogo.com.png" alt="logo" />
-                <h4>Bos</h4>
-                <h4>0</h4>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={styles.card}>
-              <div className={styles.cardbox}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toronto_Maple_Leafs_Logo_1939_-_1967.svg/124px-Toronto_Maple_Leafs_Logo_1939_-_1967.svg.png" alt="logo" />
-                <h4>Tor</h4>
-                <h4>5</h4>
-              </div>
-              <div className={styles.cardbox}>
-                <img src="https://seeklogo.com/images/B/boston-bruins-logo-41FD986EBD-seeklogo.com.png" alt="logo" />
-                <h4>Bos</h4>
-                <h4>0</h4>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={styles.card}>
-              <div className={styles.cardbox}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toronto_Maple_Leafs_Logo_1939_-_1967.svg/124px-Toronto_Maple_Leafs_Logo_1939_-_1967.svg.png" alt="logo" />
-                <h4>Tor</h4>
-                <h4>5</h4>
-              </div>
-              <div className={styles.cardbox}>
-                <img src="https://seeklogo.com/images/B/boston-bruins-logo-41FD986EBD-seeklogo.com.png" alt="logo" />
-                <h4>Bos</h4>
-                <h4>0</h4>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={styles.card}>
-              <div className={styles.cardbox}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toronto_Maple_Leafs_Logo_1939_-_1967.svg/124px-Toronto_Maple_Leafs_Logo_1939_-_1967.svg.png" alt="logo" />
-                <h4>Tor</h4>
-                <h4>5</h4>
-              </div>
-              <div className={styles.cardbox}>
-                <img src="https://seeklogo.com/images/B/boston-bruins-logo-41FD986EBD-seeklogo.com.png" alt="logo" />
-                <h4>Bos</h4>
-                <h4>0</h4>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={styles.card}>
-              <div className={styles.cardbox}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toronto_Maple_Leafs_Logo_1939_-_1967.svg/124px-Toronto_Maple_Leafs_Logo_1939_-_1967.svg.png" alt="logo" />
-                <h4>Tor</h4>
-                <h4>5</h4>
-              </div>
-              <div className={styles.cardbox}>
-                <img src="https://seeklogo.com/images/B/boston-bruins-logo-41FD986EBD-seeklogo.com.png" alt="logo" />
-                <h4>Bos</h4>
-                <h4>0</h4>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={styles.card}>
-              <div className={styles.cardbox}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toronto_Maple_Leafs_Logo_1939_-_1967.svg/124px-Toronto_Maple_Leafs_Logo_1939_-_1967.svg.png" alt="logo" />
-                <h4>Tor</h4>
-                <h4>5</h4>
-              </div>
-              <div className={styles.cardbox}>
-                <img src="https://seeklogo.com/images/B/boston-bruins-logo-41FD986EBD-seeklogo.com.png" alt="logo" />
-                <h4>Bos</h4>
-                <h4>0</h4>
+                <img src="https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-29-dark.svg" alt="logo" />
+                <h4>{away}</h4>
+                <h4>-</h4>
               </div>
             </div>
           </div>
