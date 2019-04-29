@@ -18,12 +18,12 @@ export const fetchError = bool => ({
 export const fetchPlayers = url => (dispatch) => {
   axios.get(url)
     .then((response) => {
-      const items = response.data.map(dat => dat.roster.roster);
+      const items = response.data.teams.map(dat => dat);
       const swePlayers = [];
       for (let i = 0; i < items.length; i += 1) {
-        for (let x = 0; x < items[i].length; x += 1) {
-          if (items[i][x].person.nationality === 'SWE') {
-            swePlayers.push(items[i][x].person);
+        for (let x = 0; x < items[i].roster.roster.length; x += 1) {
+          if (items[i].roster.roster[x].person.nationality === 'SWE') {
+            swePlayers.push(items[i].roster.roster[x].person);
           }
         }
       }

@@ -21,7 +21,7 @@ class PlayersTableComponent extends Component {
   /* eslint-disable react/destructuring-assignment */
   // Runs when the component is mounted to the DOM
   componentDidMount = () => {
-    this.props.fetchPlayers('http://localhost:3000/teams');
+    this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeason)))');
   }
 
   // Column formatter with custom data used for creating clickable navlinks
@@ -41,7 +41,7 @@ class PlayersTableComponent extends Component {
   fetchPlayoffs = (event) => {
     event.preventDefault();
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeason') {
-      this.props.fetchPlayers('http://localhost:3000/teams');
+      this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeasonPlayoffs)))');
     }
   }
 
@@ -49,7 +49,7 @@ class PlayersTableComponent extends Component {
   fetchRegular = (event) => {
     event.preventDefault();
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeasonPlayoffs') {
-      this.props.fetchPlayers('http://localhost:3000/teams');
+      this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeason)))');
     }
   }
   /* eslint-enable react/destructuring-assignment */
