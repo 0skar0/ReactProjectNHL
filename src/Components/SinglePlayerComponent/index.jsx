@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import styles from './SinglePlayerComponent.module.css';
 
@@ -27,25 +29,30 @@ class SinglePlayerComponent extends Component {
 
 
   render() {
+    console.log(this.props);
+    const cell = this.props.match.params.cell;
+    console.log(cell);
     const { player, errorState } = this.state;
-    const actionIMG = 'https://nhl.bamcontent.com/images/actionshots/8479407.jpg';
-    const headshotIMG = 'https://nhl.bamcontent.com/images/headshots/current/168x168/8479407.jpg';
+    const actionIMG = `https://nhl.bamcontent.com/images/actionshots/${cell}.jpg`;
+    const headshotIMG = `https://nhl.bamcontent.com/images/headshots/current/168x168/${cell}.jpg`;
 
     const test2 = '1';
     const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${test2}-dark.svg`;
-    if (!player) {
+
+    const singlePlayer = this.props.players.find(playa => playa.id == cell);
+    if (!player || !singlePlayer) {
       return <p>{errorState}</p>;
     }
-    const janne = player.people[0].height.match(/\d+/)[0];
-    console.log(player.people[0]);
-    console.log(janne);
+
+    console.log(singlePlayer.fullName);
+
     return (
       <div className={styles.singlePlayerWrapper}>
         <img src={actionIMG} alt="playername" />
         <img src={headshotIMG} className={styles.headshotIMG} alt="playername" />
         <h3>
           <img src={teamLogo} className={styles.teamLogo} alt="Logo" />
-          {player.people[0].fullName}
+          {singlePlayer.fullName}
           {' '}
           #
 
@@ -68,4 +75,11 @@ class SinglePlayerComponent extends Component {
   }
 }
 
-export default SinglePlayerComponent;
+function mapStateToProps(state) {
+  return {
+    players: state.players,
+    error: state.error,
+  };
+}
+
+export default withRouter(connect(mapStateToProps, null)(SinglePlayerComponent));
