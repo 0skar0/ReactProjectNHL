@@ -39,17 +39,17 @@ class PlayersTableComponent extends Component {
 
   // Method that runs the function fetchPlayers that is passed through props
   fetchPlayoffs = (event) => {
-    event.preventDefault();
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeason') {
       this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeasonPlayoffs)))');
+      event.preventDefault();
     }
   }
 
   // Same as above only with a different url that fetches regular season stats
   fetchRegular = (event) => {
-    event.preventDefault();
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeasonPlayoffs') {
       this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeason)))');
+      event.preventDefault();
     }
   }
   /* eslint-enable react/destructuring-assignment */
@@ -120,13 +120,13 @@ class PlayersTableComponent extends Component {
       <div className="tablewrapper">
         <div className="buttonwrapper">
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton variant="secondary" value={1} onChange={this.fetchRegular}>Grundserie</ToggleButton>
-            <ToggleButton variant="secondary" value={2} onChange={this.fetchPlayoffs}>Slutspel</ToggleButton>
+            <ToggleButton variant="secondary" value={1} onClick={this.fetchRegular}>Grundserie</ToggleButton>
+            <ToggleButton variant="secondary" value={2} onClick={this.fetchPlayoffs}>Slutspel</ToggleButton>
           </ToggleButtonGroup>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton variant="secondary" value={1} onChange={this.filterAll}>Alla Spelare</ToggleButton>
-            <ToggleButton variant="secondary" value={2} onChange={this.filterForwards}>Forwards</ToggleButton>
-            <ToggleButton variant="secondary" value={3} onChange={this.filterDefensemen}>Backar</ToggleButton>
+            <ToggleButton variant="secondary" value={1} onClick={this.filterAll}>Alla Spelare</ToggleButton>
+            <ToggleButton variant="secondary" value={2} onClick={this.filterForwards}>Forwards</ToggleButton>
+            <ToggleButton variant="secondary" value={3} onClick={this.filterDefensemen}>Backar</ToggleButton>
           </ToggleButtonGroup>
         </div>
         {error && <p>Error fetching.</p>}
