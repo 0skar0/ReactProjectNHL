@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import PlayersTableComponent from '../Components/PlayersTableComponent';
 
-import SinglePlayerComponent from '../Components/SinglePlayerComponent';
 
 class Players extends Component {
   render() {
     return (
-      <SinglePlayerComponent />
+      <div className="wrapper">
+        <PlayersTableComponent />
+      </div>
     );
   }
 }
