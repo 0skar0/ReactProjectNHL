@@ -19,7 +19,7 @@ class App extends Component {
             <NavbarComponent />
             <Switch>
               <Route exact path="/" component={Homepage} />
-              <Route path="/spelare/:person.id" component={Player} />
+              <Route path="/spelare/:cell" component={Player} />
               <Route path="/spelare" component={Players} />
               <Route path="/resultat" component={Results} />
               <Route path="/tabell" component={Standings} />
