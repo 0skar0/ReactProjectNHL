@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { fetchPlayers } from '../../Redux/Action';
 import './PlayersTableComponent.css';
 
+// Component used for rendering our table of players
 class PlayersTableComponent extends Component {
   static propTypes = {
     players: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -23,10 +24,12 @@ class PlayersTableComponent extends Component {
     this.props.fetchPlayers('http://localhost:3000/teams');
   }
 
+  // Column formatter with custom data used for creating clickable navlinks
   getLinks = (cell, row) => (
     <NavLink to={`/spelare/${row.id}`} style={{ color: 'lightblue' }}>{cell}</NavLink>
   )
 
+  // Column fotmatter with custom data used for displaying team logos instead of team IDs
   getLogo = (cell) => {
     const source = 'https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-';
     return (
@@ -34,6 +37,7 @@ class PlayersTableComponent extends Component {
     );
   }
 
+  // Method that runs the function fetchPlayers that is passed through props
   fetchPlayoffs = (event) => {
     event.preventDefault();
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeason') {
@@ -41,6 +45,7 @@ class PlayersTableComponent extends Component {
     }
   }
 
+  // Same as above only with a different url that fetches regular season stats
   fetchRegular = (event) => {
     event.preventDefault();
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeasonPlayoffs') {
@@ -49,14 +54,17 @@ class PlayersTableComponent extends Component {
   }
   /* eslint-enable react/destructuring-assignment */
 
+  // Text filter used for filtering out certain values in our table
   filterAll = () => {
     this.textFilter('');
   }
 
+  // Text filter used for filtering out certain values in our table
   filterForwards = () => {
     this.textFilter('Forward');
   }
 
+  // Text filter used for filtering out certain values in our table
   filterDefensemen = () => {
     this.textFilter('Defenseman');
   }
@@ -137,6 +145,7 @@ class PlayersTableComponent extends Component {
   }
 }
 
+// Connects our component with the data in our Redux store
 function mapStateToProps(state) {
   return {
     players: state.players,
@@ -144,6 +153,7 @@ function mapStateToProps(state) {
   };
 }
 
+// Used for dispatching actions to our store
 const mapDispatchToProps = {
   fetchPlayers,
 };
