@@ -29,7 +29,7 @@ class PlayersTableComponent extends Component {
     <NavLink to={`/spelare/${row.id}`} style={{ color: 'lightblue' }}>{cell}</NavLink>
   )
 
-  // Column fotmatter with custom data used for displaying team logos instead of team IDs
+  // Column formatter with custom data used for displaying team logos instead of team IDs
   getLogo = (cell) => {
     const source = 'https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-';
     return (
