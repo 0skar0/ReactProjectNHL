@@ -1,50 +1,44 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 
 import styles from './SinglePlayerComponent.module.css';
 
+// Component for rendering info and images of one specific player.
 class SinglePlayerComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      player: null,
-      errorState: null,
-    };
+  static propTypes = {
+    players: PropTypes.arrayOf(PropTypes.object).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        cell: PropTypes.string,
+      }),
+    }),
+  };
+
+  static defaultProps = {
+    match: {},
   }
-
-
-  componentDidMount() {
-    axios.get('https://statsapi.web.nhl.com/api/v1/people/8479407')
-      .then((res) => {
-        const player = res.data;
-        this.setState({ player });
-      })
-      .catch((error) => {
-        const errorState = error.message;
-        this.setState({ errorState });
-      });
-  }
-
 
   render() {
-    console.log(this.props);
-    const cell = this.props.match.params.cell;
-    console.log(cell);
-    const { player, errorState } = this.state;
-    const actionIMG = `https://nhl.bamcontent.com/images/actionshots/${cell}.jpg`;
-    const headshotIMG = `https://nhl.bamcontent.com/images/headshots/current/168x168/${cell}.jpg`;
+    /* eslint-disable react/destructuring-assignment */
+    const cellString = this.props.match.params.cell;
+    const cell = parseInt(cellString, 10);
 
-    const test2 = '1';
-    const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${test2}-dark.svg`;
+    // Comparing player id from match.params.cell with the players array from our global state.
+    const singlePlayer = this.props.players.find(onePlayer => onePlayer.id === cell);
 
-    const singlePlayer = this.props.players.find(playa => playa.id == cell);
-    if (!player || !singlePlayer) {
-      return <p>{errorState}</p>;
+    if (!singlePlayer) {
+      return <p>Loading</p>;
     }
 
-    console.log(singlePlayer.fullName);
+    const actionIMG = `https://nhl.bamcontent.com/images/actionshots/${cell}.jpg`;
+
+    const headshotIMG = `https://nhl.bamcontent.com/images/headshots/current/168x168/${cell}.jpg`;
+
+    const teamID = singlePlayer.currentTeam.id;
+    const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamID}-dark.svg`;
+
 
     return (
       <div className={styles.singlePlayerWrapper}>
@@ -55,20 +49,19 @@ class SinglePlayerComponent extends Component {
           {singlePlayer.fullName}
           {' '}
           #
-
-          {player.people[0].primaryNumber}
+          {singlePlayer.primaryNumber}
         </h3>
         <p>
-          {player.people[0].primaryPosition.type}
+          {singlePlayer.primaryPosition.type}
           {' '}
           |
           {' Ålder: '}
-          {player.people[0].currentAge}
+          {singlePlayer.currentAge}
           {' '}
           |
+          {' Född: '}
+          {singlePlayer.birthCity}
           {' '}
-          {player.people[0].height}
-
         </p>
       </div>
     );
