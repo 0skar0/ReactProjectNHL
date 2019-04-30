@@ -18,6 +18,10 @@ class PlayersTableComponent extends Component {
     error: PropTypes.bool.isRequired,
   };
 
+  state = {
+    showGoalie: false,
+  }
+
   /* eslint-disable react/destructuring-assignment */
   // Runs when the component is mounted to the DOM
   componentDidMount = () => {
@@ -52,21 +56,36 @@ class PlayersTableComponent extends Component {
       this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeason)))');
     }
   }
-  /* eslint-enable react/destructuring-assignment */
 
   // Text filter used for filtering out certain values in our table
   filterAll = () => {
+    this.setState({
+      showGoalie: false,
+    });
     this.textFilter('');
   }
 
   // Text filter used for filtering out certain values in our table
   filterForwards = () => {
+    this.setState({
+      showGoalie: false,
+    });
     this.textFilter('Forward');
   }
 
   // Text filter used for filtering out certain values in our table
   filterDefensemen = () => {
+    this.setState({
+      showGoalie: false,
+    });
     this.textFilter('Defenseman');
+  }
+
+  filterGoalies = () => {
+    this.setState({
+      showGoalie: true,
+    });
+    this.textFilter('Goalie');
   }
 
   // Lifecycle method that render our JSX code into the DOM
@@ -116,6 +135,50 @@ class PlayersTableComponent extends Component {
       dataField: 'stats[0].splits[0].stat.points',
       order: 'desc',
     }];
+    const columns1 = [{
+      dataField: 'fullName',
+      text: 'Namn',
+      formatter: this.getLinks,
+      sort: true,
+    }, {
+      dataField: 'currentTeam.id',
+      text: 'Lag',
+      formatter: this.getLogo,
+      sort: true,
+    }, {
+      dataField: 'primaryPosition.type',
+      text: 'Position',
+      sort: true,
+      filter: textFilter({
+        getFilter: (filter) => {
+          this.textFilter = filter;
+        },
+      }),
+    }, {
+      dataField: 'currentAge',
+      text: 'Ålder',
+      sort: true,
+    }, {
+      dataField: 'stats[0].splits[0].stat.games',
+      text: 'Spelade Matcher',
+      sort: true,
+    }, {
+      dataField: 'stats[0].splits[0].stat.saves',
+      text: 'Räddningar',
+      sort: true,
+    }, {
+      dataField: 'stats[0].splits[0].stat.goalAgainstAverage',
+      text: 'Insläppta mål per match',
+      sort: true,
+    }, {
+      dataField: 'stats[0].splits[0].stat.savePercentage',
+      text: 'Räddningsprocent',
+      sort: true,
+    }];
+    const defaultSorted1 = [{
+      dataField: 'stats[0].splits[0].stat.savePercentage',
+      order: 'desc',
+    }];
     return (
       <div className="tablewrapper">
         <div className="buttonwrapper">
@@ -127,23 +190,38 @@ class PlayersTableComponent extends Component {
             <ToggleButton variant="secondary" value={1} onChange={this.filterAll}>Alla Spelare</ToggleButton>
             <ToggleButton variant="secondary" value={2} onChange={this.filterForwards}>Forwards</ToggleButton>
             <ToggleButton variant="secondary" value={3} onChange={this.filterDefensemen}>Backar</ToggleButton>
+            <ToggleButton variant="secondary" value={4} onChange={this.filterGoalies}>Målvakter</ToggleButton>
           </ToggleButtonGroup>
         </div>
         {error && <p>Error fetching.</p>}
-        <BootstrapTable
-          bootstrap4
-          classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
-          keyField="id"
-          data={players}
-          columns={columns}
-          defaultSorted={defaultSorted}
-          pagination={paginationFactory()}
-          filter={filterFactory()}
-        />
+        {!this.state.showGoalie ? (
+          <BootstrapTable
+            bootstrap4
+            classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
+            keyField="id"
+            data={players}
+            columns={columns}
+            defaultSorted={defaultSorted}
+            pagination={paginationFactory()}
+            filter={filterFactory()}
+          />
+        ) : (
+          <BootstrapTable
+            bootstrap4
+            classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
+            keyField="id"
+            data={players}
+            columns={columns1}
+            defaultSorted={defaultSorted1}
+            pagination={paginationFactory()}
+            filter={filterFactory()}
+          />
+        )}
       </div>
     );
   }
 }
+/* eslint-enable react/destructuring-assignment */
 
 // Connects our component with the data in our Redux store
 function mapStateToProps(state) {
