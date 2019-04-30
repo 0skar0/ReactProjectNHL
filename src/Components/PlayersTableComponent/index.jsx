@@ -100,12 +100,12 @@ class PlayersTableComponent extends Component {
       text: 'Spelade Matcher',
       sort: true,
     }, {
-      dataField: 'stats[0].splits[0].stat.assists',
-      text: 'Assist',
-      sort: true,
-    }, {
       dataField: 'stats[0].splits[0].stat.goals',
       text: 'Mål',
+      sort: true,
+    }, {
+      dataField: 'stats[0].splits[0].stat.assists',
+      text: 'Assist',
       sort: true,
     }, {
       dataField: 'stats[0].splits[0].stat.points',
