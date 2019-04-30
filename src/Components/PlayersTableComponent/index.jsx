@@ -38,16 +38,14 @@ class PlayersTableComponent extends Component {
   }
 
   // Method that runs the function fetchPlayers that is passed through props
-  fetchPlayoffs = (event) => {
-    event.preventDefault();
+  fetchPlayoffs = () => {
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeason') {
       this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeasonPlayoffs)))');
     }
   }
 
   // Same as above only with a different url that fetches regular season stats
-  fetchRegular = (event) => {
-    event.preventDefault();
+  fetchRegular = () => {
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeasonPlayoffs') {
       this.props.fetchPlayers('https://statsapi.web.nhl.com/api/v1/teams/?hydrate=roster(person(stats(splits=statsSingleSeason)))');
     }
