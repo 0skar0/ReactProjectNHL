@@ -36,7 +36,21 @@ class DetailedPlayerInfoComponent extends Component {
     if (!detailedPlayerInfo) {
       return <p>{this.state.errorState}</p>;
     }
-    console.log(detailedPlayerInfo.people[0].stats[0]);
+    console.log(detailedPlayerInfo.people[0].stats[0].splits);
+    const reverseStatsArray = detailedPlayerInfo.people[0].stats[0].splits;
+    const compare = (a, b) => {
+      const seasonA = a.season;
+      const seasonB = b.season;
+      let comparison = 0;
+      if (seasonA > seasonB) {
+        comparison = 1;
+      } else if (seasonA < seasonB) {
+        comparison = -1;
+      }
+      return comparison * -1;
+    };
+
+    reverseStatsArray.sort(compare);
     return (
       <div className={styles.tableWrapper}>
         <h5>Statistik</h5>
@@ -56,7 +70,6 @@ class DetailedPlayerInfoComponent extends Component {
           {detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
             <tbody key={i}>
               <tr>
-                {console.log(player)}
                 <td>{player.season}</td>
                 <td>{player.team.name}</td>
                 <td>{player.league.name}</td>
@@ -68,18 +81,6 @@ class DetailedPlayerInfoComponent extends Component {
               </tr>
             </tbody>
           ))}
-          <tbody>
-            <tr>
-              <td>{detailedPlayerInfo.people[0].stats[0].splits[0].season}</td>
-              <td>{detailedPlayerInfo.people[0].stats[0].splits[0].team.name}</td>
-              <td>SHL</td>
-              <td>34</td>
-              <td>19</td>
-              <td>5</td>
-              <td>14</td>
-              <td>19</td>
-            </tr>
-          </tbody>
         </Table>
       </div>
     );
