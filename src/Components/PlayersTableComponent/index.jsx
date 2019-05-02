@@ -41,6 +41,28 @@ class PlayersTableComponent extends Component {
     );
   }
 
+  getPosition = (cell) => {
+    if (cell === 'Defenseman') {
+      return (
+        <span>
+          Back
+        </span>
+      );
+    }
+
+    if (cell === 'Goalie') {
+      return (
+        <span>
+          Målvakt
+        </span>
+      );
+    }
+
+    return (
+      <span>{ cell }</span>
+    );
+  }
+
   // Method that runs the function fetchPlayers that is passed through props
   fetchPlayoffs = () => {
     if (this.props.players[0].stats[0].type.displayName === 'statsSingleSeason') {
@@ -108,6 +130,7 @@ class PlayersTableComponent extends Component {
           this.textFilter = filter;
         },
       }),
+      formatter: this.getPosition,
     }, {
       dataField: 'currentAge',
       text: 'Ålder',
@@ -152,6 +175,7 @@ class PlayersTableComponent extends Component {
           this.textFilter = filter;
         },
       }),
+      formatter: this.getPosition,
     }, {
       dataField: 'currentAge',
       text: 'Ålder',
