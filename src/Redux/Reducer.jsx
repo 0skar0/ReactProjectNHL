@@ -7,6 +7,11 @@ export default (state = {}, action) => {
           ...action.players,
         ],
       });
+    case 'FETCH_LOADING':
+      return ({
+        ...state,
+        loading: action.loading,
+      });
     case 'FETCH_ERROR':
       return ({
         ...state,
