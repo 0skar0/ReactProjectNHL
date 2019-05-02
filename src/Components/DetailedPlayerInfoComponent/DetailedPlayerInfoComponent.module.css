@@ -1,3 +1,6 @@
+Table {
+  text-align: center;
+}
 .tableWrapper {
   border: 2px solid #eee;
   padding: 10px 5px 10px 5px;
@@ -5,4 +8,8 @@
 
 .borderBottom {
   border-bottom: 1px solid grey;
+}
+
+th {
+  background-color: #202327;
 }
