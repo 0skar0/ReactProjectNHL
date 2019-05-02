@@ -32,6 +32,7 @@ class DetailedPlayerInfoComponent extends Component {
 
   render() {
     const { detailedPlayerInfo } = this.state;
+
     if (!detailedPlayerInfo) {
       return <p>{this.state.errorState}</p>;
     }
@@ -51,7 +52,8 @@ class DetailedPlayerInfoComponent extends Component {
     };
 
     reverseStatsArray.sort(compare);
-    console.log(detailedPlayerInfo);
+    const goaltender = detailedPlayerInfo.people[0].primaryPosition.type;
+    console.log(detailedPlayerInfo.people[0].primaryPosition.type);
     return (
       <div className={styles.tableWrapper}>
         <h5>Statistik</h5>
@@ -61,7 +63,13 @@ class DetailedPlayerInfoComponent extends Component {
               <th>Säsong</th>
               <th>Lag</th>
               <th>Liga</th>
-              <th data-toggle="tooltip" data-placement="top" title="Utvisningsminuter">UM</th>
+              <th
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Utvisningsminuter"
+              >
+              UM
+              </th>
               <th>+/-</th>
               <th>Matcher</th>
               <th>Mål</th>
@@ -69,9 +77,9 @@ class DetailedPlayerInfoComponent extends Component {
               <th>Poäng</th>
             </tr>
           </thead>
-          {detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
-            <tbody key={i}>
-              <tr className={styles.borderBottom}>
+          <tbody>
+            {detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
+              <tr key={i} className={styles.borderBottom}>
                 <td>{player.season}</td>
                 <td>{player.team.name}</td>
                 <td>{player.league.name}</td>
@@ -82,8 +90,8 @@ class DetailedPlayerInfoComponent extends Component {
                 <td>{player.stat.assists}</td>
                 <td>{player.stat.points}</td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </Table>
       </div>
     );
