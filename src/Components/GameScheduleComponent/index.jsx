@@ -71,24 +71,24 @@ class GameScheduleComponent extends Component {
 
   render() {
     const {
-      dates, home, away, homeID, awayID, teamID, data,
+      dates, home, away, homeID,
     } = this.state;
 
 
     console.log(dates);
-    const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamID}-dark.svg`;
+    const teamLogo = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${homeID}-dark.svg`;
     return (
       <div className={styles.container}>
         <Slider {...this.settings}>
           <div>
             <div className={styles.card}>
               <div className={styles.cardbox}>
-                <img src="https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-6-dark.svg" alt="logo" />
+                <img src={teamLogo} alt="logo" />
                 <h4>{home}</h4>
                 <h4>-</h4>
               </div>
               <div className={styles.cardbox}>
-                <img src="https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-29-dark.svg" alt="logo" />
+                <img src={teamLogo} alt="logo" />
                 <h4>{away}</h4>
                 <h4>-</h4>
               </div>
