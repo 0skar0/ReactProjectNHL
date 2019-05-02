@@ -135,7 +135,7 @@ class PlayersTableComponent extends Component {
       dataField: 'stats[0].splits[0].stat.points',
       order: 'desc',
     }];
-    const columns1 = [{
+    const columnsGoalie = [{
       dataField: 'fullName',
       text: 'Namn',
       formatter: this.getLinks,
@@ -175,7 +175,7 @@ class PlayersTableComponent extends Component {
       text: 'Räddningsprocent',
       sort: true,
     }];
-    const defaultSorted1 = [{
+    const defaultSortedGoalie = [{
       dataField: 'stats[0].splits[0].stat.savePercentage',
       order: 'desc',
     }];
@@ -211,8 +211,8 @@ class PlayersTableComponent extends Component {
             classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
             keyField="id"
             data={players}
-            columns={columns1}
-            defaultSorted={defaultSorted1}
+            columns={columnsGoalie}
+            defaultSorted={defaultSortedGoalie}
             pagination={paginationFactory()}
             filter={filterFactory()}
           />
