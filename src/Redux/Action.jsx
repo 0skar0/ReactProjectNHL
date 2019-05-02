@@ -7,6 +7,12 @@ export const addPlayers = items => ({
 });
 
 // Action creator that returns an action object
+export const fetchLoading = bool => ({
+  type: 'FETCH_LOADING',
+  loading: bool,
+});
+
+// Action creator that returns an action object
 export const fetchError = bool => ({
   type: 'FETCH_ERROR',
   error: bool,
@@ -16,6 +22,7 @@ export const fetchError = bool => ({
 // function instead of an action object. This allows us to make asynchronous
 // calls that we will dispatch the relevant data to our redux store when it is ready.
 export const fetchPlayers = url => (dispatch) => {
+  dispatch(fetchLoading(true));
   axios.get(url)
     .then((response) => {
       const items = response.data.teams.map(dat => dat);
@@ -28,6 +35,7 @@ export const fetchPlayers = url => (dispatch) => {
         }
       }
       dispatch(addPlayers(swePlayers));
+      dispatch(fetchLoading(false));
     })
     /* eslint-disable no-unused-vars */
     .catch((error) => {
