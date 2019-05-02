@@ -13,6 +13,7 @@ const store = createStore(
   reducer,
   {
     players: [],
+    loading: false,
     error: false,
   },
   compose(
