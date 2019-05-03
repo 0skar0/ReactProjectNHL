@@ -2,12 +2,27 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import styles from './DetailedPlayerInfoComponent.module.css';
 
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-array-index-key */
 
+// Component that renders detailed statistics about one player over his whole career.
 class DetailedPlayerInfoComponent extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        cell: PropTypes.string,
+      }),
+    }),
+  };
+
+  static defaultProps = {
+    match: {},
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +31,7 @@ class DetailedPlayerInfoComponent extends Component {
     };
   }
 
+  // Fetching data from NHL API.
   componentDidMount() {
     const specificPlayerID = this.props.match.params.cell;
 
@@ -31,14 +47,15 @@ class DetailedPlayerInfoComponent extends Component {
   }
 
   render() {
-    const { detailedPlayerInfo } = this.state;
+    const { detailedPlayerInfo, errorState } = this.state;
 
     if (!detailedPlayerInfo) {
-      return <p>{this.state.errorState}</p>;
+      return <p>{errorState}</p>;
     }
 
     const reverseStatsArray = detailedPlayerInfo.people[0].stats[0].splits;
 
+    // Changing the order of the array so that the most recent season displays atop.
     const compare = (a, b) => {
       const seasonA = a.season;
       const seasonB = b.season;
@@ -52,27 +69,26 @@ class DetailedPlayerInfoComponent extends Component {
     };
 
     reverseStatsArray.sort(compare);
-    const goaltender = detailedPlayerInfo.people[0].primaryPosition.type;
-    console.log(detailedPlayerInfo.people[0]);
-    console.log(goaltender);
+
+    const playerPosition = detailedPlayerInfo.people[0].primaryPosition.type;
+
     return (
       <div className={styles.tableWrapper}>
         <h5>Statistik</h5>
-        <Table striped borderless hover variant="dark">
-
+        <Table striped borderless hover variant="dark" className={styles.table}>
           <thead className="sticky-top">
-            {goaltender === 'Goalie'
+            {playerPosition === 'Goalie'
               ? (
-                <tr className="sticky-top">
-                  <th>Säsong</th>
-                  <th>Lag</th>
-                  <th>Liga</th>
-                  <th>Matcher</th>
-                  <th>Insläppta mål</th>
-                  <th>Räddningsprocent</th>
-                  <th>Räddningar</th>
-                  <th>Antal skott</th>
-                  <th>Hållna nollor</th>
+                <tr className={styles.borderBottom}>
+                  <th className="sticky-top">Säsong</th>
+                  <th className="sticky-top">Lag</th>
+                  <th className="sticky-top">Liga</th>
+                  <th className="sticky-top">Matcher</th>
+                  <th className="sticky-top">Insläppta mål</th>
+                  <th className="sticky-top">Räddningsprocent</th>
+                  <th className="sticky-top">Räddningar</th>
+                  <th className="sticky-top">Antal skott</th>
+                  <th className="sticky-top">Hållna nollor</th>
                 </tr>
               )
               : (
@@ -99,7 +115,19 @@ class DetailedPlayerInfoComponent extends Component {
           </thead>
 
           <tbody>
-            {detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
+            {playerPosition === 'Goalie' ? detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
+              <tr key={i} className={styles.borderBottom}>
+                <td>{player.season}</td>
+                <td>{player.team.name}</td>
+                <td>{player.league.name}</td>
+                <td>{player.stat.games}</td>
+                <td>{player.stat.goalAgainstAverage}</td>
+                <td>{player.stat.savePercentage}</td>
+                <td>{player.stat.evenSaves}</td>
+                <td>{player.stat.evenShots}</td>
+                <td>{player.stat.shutouts}</td>
+              </tr>
+            )) : detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
               <tr key={i} className={styles.borderBottom}>
                 <td>{player.season}</td>
                 <td>{player.team.name}</td>
