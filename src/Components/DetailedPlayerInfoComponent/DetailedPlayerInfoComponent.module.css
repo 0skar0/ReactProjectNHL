@@ -1,0 +1,22 @@
+Table {
+  text-align: center;
+}
+.tableWrapper {
+  border: 2px solid #eee;
+  padding: 10px 5px 10px 5px;
+}
+
+.borderBottom {
+  border-bottom: 1px solid grey;
+}
+
+.table th {
+  background-color: #202327;
+}
+
+.table th:nth-child(1) {
+  border-top-left-radius: 10px;
+}
+.table th:nth-child(9) {
+  border-top-right-radius: 10px;
+}
