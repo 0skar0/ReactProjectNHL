@@ -7,6 +7,15 @@
   font-weight: bold;
 }
 
+.wrapper h4 {
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.wrapper h5 {
+  font-size: 15px;
+}
+
 .buttons {
     padding: 15px;
     text-align: center;

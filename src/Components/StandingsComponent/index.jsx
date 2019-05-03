@@ -263,6 +263,35 @@ export default class StandingsComponent extends Component {
             />
           </Fragment>
         )}
+        <h4>Förkortningar:</h4>
+        <h5>
+          <strong>GP: </strong>
+            Spelade matcher
+        </h5>
+        <h5>
+          <strong>W: </strong>
+            Vinster
+        </h5>
+        <h5>
+          <strong>L: </strong>
+            Förluster
+        </h5>
+        <h5>
+          <strong>OT: </strong>
+            Overtime
+        </h5>
+        <h5>
+          <strong>Points: </strong>
+            Poäng
+        </h5>
+        <h5>
+          <strong>G: </strong>
+            Mål
+        </h5>
+        <h5>
+          <strong>GA: </strong>
+            Insläppta mål
+        </h5>
       </div>
     );
   }
