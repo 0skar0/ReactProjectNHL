@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import styles from './SinglePlayerComponent.module.css';
+import DetailedPlayerInfoComponent from '../DetailedPlayerInfoComponent';
 
 // Component for rendering info and images of one specific player.
 class SinglePlayerComponent extends Component {
@@ -29,7 +30,7 @@ class SinglePlayerComponent extends Component {
     const singlePlayer = this.props.players.find(onePlayer => onePlayer.id === cell);
 
     if (!singlePlayer) {
-      return <p>Loading</p>;
+      return <DetailedPlayerInfoComponent />;
     }
 
     const actionIMG = `https://nhl.bamcontent.com/images/actionshots/${cell}.jpg`;
@@ -63,6 +64,7 @@ class SinglePlayerComponent extends Component {
           {singlePlayer.birthCity}
           {' '}
         </p>
+        <DetailedPlayerInfoComponent />
       </div>
     );
   }
