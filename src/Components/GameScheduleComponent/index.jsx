@@ -30,27 +30,12 @@ class GameScheduleComponent extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   axios.get('https://nhl-score-api.herokuapp.com/api/scores/latest')
-  //     .then((res) => {
-  //       this.setState({
-  //         dates: res.data.games,
-  //         home: res.data.games[0].teams.home,
-  //         away: res.data.games[0].teams.away,
-  //       });
-  //       // console.log(result.dates[0].games[1].teams.home.team.name);
-  //     });
-  // }
-
-
   componentDidMount() {
     const today = new Date();
     const res = today.toISOString().slice(0, 10).replace(/-/g, '-');
     const days = new Date();
     days.setDate(days.getDate() - 5);
     const resDays = days.toISOString().slice(0, 10).replace(/-/g, '-');
-    // console.log(res);
-    // console.log(resDays);
     axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${resDays}&endDate=${res}`)
       .then((response) => {
         const items = response.data.dates.map(dat => dat);
