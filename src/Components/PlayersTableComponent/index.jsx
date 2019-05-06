@@ -41,20 +41,17 @@ class PlayersTableComponent extends Component {
     );
   }
 
+  // Column formatter with custom data that displays the swedish word for each position
   getPosition = (cell) => {
     if (cell === 'Defenseman') {
       return (
-        <span>
-          Back
-        </span>
+        <span>Back</span>
       );
     }
 
     if (cell === 'Goalie') {
       return (
-        <span>
-          Målvakt
-        </span>
+        <span>Målvakt</span>
       );
     }
 
