@@ -43,7 +43,7 @@ class SinglePlayerComponent extends Component {
 
     return (
       <div className={styles.singlePlayerWrapper}>
-        <img src={actionIMG} alt="playername" />
+        <img src={actionIMG} alt="playername" className={styles.actionIMG} />
         <img src={headshotIMG} className={styles.headshotIMG} alt="playername" />
         <h3>
           <img src={teamLogo} className={styles.teamLogo} alt="Logo" />

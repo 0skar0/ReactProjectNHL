@@ -17,3 +17,7 @@
   height: 30px;
   margin-right: 10px;
 }
+
+.actionIMG {
+  max-height: 450px;
+}
