@@ -64,6 +64,7 @@ class GameScheduleComponent extends Component {
       });
   }
 
+  /* eslint-disable react/destructuring-assignment */
   getAbbrevation = (teamID) => {
     for (let x = 0; x < this.state.data.length; x += 1) {
       if (teamID === this.state.data[x].id) {
@@ -78,8 +79,8 @@ class GameScheduleComponent extends Component {
   render() {
     return (
       <Slider {...this.settings}>
-        {this.state.dates.map((team, i) => (
-          <div key={i} className={styles.card}>
+        {this.state.dates.map(team => (
+          <div key={team.link} className={styles.card}>
             <div className={styles.cardbox}>
               <img src={this.getLogo(team.teams.home.team.id)} alt="logo" />
               <h4>{this.getAbbrevation(team.teams.home.team.id)}</h4>
@@ -96,5 +97,6 @@ class GameScheduleComponent extends Component {
     );
   }
 }
+/* eslint-enable react/destructuring-assignment */
 
 export default GameScheduleComponent;
