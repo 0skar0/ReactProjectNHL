@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import axios from 'axios';
 import styles from './GameScheduleComponent.module.css';
 
+// Component used for showing recent results on the homepage
 class GameScheduleComponent extends Component {
   constructor() {
     super();
@@ -30,6 +31,7 @@ class GameScheduleComponent extends Component {
     };
   }
 
+  // Runs when the component is mounted to the DOM
   componentDidMount() {
     const today = new Date();
     const res = today.toISOString().slice(0, 10).replace(/-/g, '-');
@@ -65,6 +67,7 @@ class GameScheduleComponent extends Component {
   }
 
   /* eslint-disable react/destructuring-assignment */
+  // Returns the correct team abbreviation
   getAbbrevation = (teamID) => {
     for (let x = 0; x < this.state.data.length; x += 1) {
       if (teamID === this.state.data[x].id) {
@@ -74,8 +77,10 @@ class GameScheduleComponent extends Component {
     return false;
   }
 
+  // Returns a different logo based on the paramter teamID
   getLogo = teamID => `https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamID}-dark.svg`
 
+  // Lifecycle method that render our JSX code into the DOM
   render() {
     return (
       <Slider {...this.settings}>
