@@ -19,36 +19,31 @@ export default class StandingsComponent extends Component {
     };
   }
 
+  // Fetches the standings data from the API
   componentDidMount() {
     axios.get('https://statsapi.web.nhl.com/api/v1/standings/byLeague')
       .then((result) => {
-        const items = result.data.records[0].teamRecords.map(dat => dat);
+        const items = result.data.records[0].teamRecords.map(team => team);
         const teams = [];
-        (function getTeams() {
-          for (let i = 0; i < items.length; i++) {
-            teams.push(items[i]);
-          }
-        }());
+        for (let i = 0; i < items.length; i += 1) {
+          teams.push(items[i]);
+        }
         this.setState({
           byLeague: teams,
         });
       });
     axios.get('https://statsapi.web.nhl.com/api/v1/standings/byConference')
       .then((result) => {
-        const items = result.data.records[1].teamRecords.map(dat => dat);
+        const westernItems = result.data.records[1].teamRecords;
         const westernTeams = [];
-        (function getTeams() {
-          for (let i = 0; i < items.length; i++) {
-            westernTeams.push(items[i]);
-          }
-        }());
-        const easternItems = result.data.records[0].teamRecords.map(dat => dat);
+        for (let i = 0; i < westernItems.length; i += 1) {
+          westernTeams.push(westernItems[i]);
+        }
+        const easternItems = result.data.records[0].teamRecords;
         const easternTeams = [];
-        (function getTeams() {
-          for (let i = 0; i < easternItems.length; i++) {
-            easternTeams.push(easternItems[i]);
-          }
-        }());
+        for (let i = 0; i < easternItems.length; i += 1) {
+          easternTeams.push(easternItems[i]);
+        }
         this.setState({
           byWestern: westernTeams,
           byEastern: easternTeams,
@@ -56,6 +51,7 @@ export default class StandingsComponent extends Component {
       });
   }
 
+  // Formatter that returns the teams logo
   getTeamLogo = (id) => {
     const src = 'https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-';
     return (
@@ -63,13 +59,15 @@ export default class StandingsComponent extends Component {
     );
   }
 
-  fetchLeague = () => {
+  // Toggle function for displaying the league standings
+  showLeague = () => {
     this.setState({
       showLeague: true,
     });
   }
 
-  fetchConference = () => {
+  // Toggle function as above - displaying the conference standings
+  showConference = () => {
     this.setState({
       showLeague: false,
     });
@@ -80,9 +78,6 @@ export default class StandingsComponent extends Component {
       byLeague, byWestern, byEastern,
     } = this.state;
 
-    const leagueStandings = byLeague;
-    const westernStandings = byWestern;
-    const easternStandings = byEastern;
 
     const leagueColumns = [{
       dataField: 'leagueRank',
@@ -90,6 +85,7 @@ export default class StandingsComponent extends Component {
       headerStyle: () => ({ width: '100px' }),
     }, {
       dataField: 'team.id',
+      text: '',
       formatter: this.getTeamLogo,
       headerStyle: () => ({ width: '100px' }),
     }, {
@@ -116,8 +112,9 @@ export default class StandingsComponent extends Component {
       sort: true,
     }, {
       dataField: 'points',
-      text: 'POINTS',
+      text: 'Poäng',
       sort: true,
+      style: () => ({ backgroundColor: 'rgba(47, 148, 60, 0.10)', fontWeight: 'bold' }),
     }, {
       dataField: 'goalsScored',
       text: 'G',
@@ -126,8 +123,7 @@ export default class StandingsComponent extends Component {
       dataField: 'goalsAgainst',
       text: 'GA',
       sort: true,
-    },
-    ];
+    }];
 
     const defaultSorted = [{
       dataField: 'points',
@@ -140,6 +136,7 @@ export default class StandingsComponent extends Component {
       headerStyle: () => ({ width: '100px' }),
     }, {
       dataField: 'team.id',
+      text: '',
       formatter: this.getTeamLogo,
       headerStyle: () => ({ width: '100px' }),
     }, {
@@ -166,8 +163,9 @@ export default class StandingsComponent extends Component {
       sort: true,
     }, {
       dataField: 'points',
-      text: 'POINTS',
+      text: 'Poäng',
       sort: true,
+      style: () => ({ backgroundColor: 'rgba(47, 148, 60, 0.10)', fontWeight: 'bold' }),
     }, {
       dataField: 'goalsScored',
       text: 'G',
@@ -176,8 +174,7 @@ export default class StandingsComponent extends Component {
       dataField: 'goalsAgainst',
       text: 'GA',
       sort: true,
-    },
-    ];
+    }];
 
     const easternColumns = [{
       dataField: 'conferenceRank',
@@ -185,6 +182,7 @@ export default class StandingsComponent extends Component {
       headerStyle: () => ({ width: '100px' }),
     }, {
       dataField: 'team.id',
+      text: '',
       formatter: this.getTeamLogo,
       headerStyle: () => ({ width: '100px' }),
     }, {
@@ -211,8 +209,9 @@ export default class StandingsComponent extends Component {
       sort: true,
     }, {
       dataField: 'points',
-      text: 'POINTS',
+      text: 'Poäng',
       sort: true,
+      style: () => ({ backgroundColor: 'rgba(47, 148, 60, 0.10)', fontWeight: 'bold' }),
     }, {
       dataField: 'goalsScored',
       text: 'G',
@@ -221,43 +220,42 @@ export default class StandingsComponent extends Component {
       dataField: 'goalsAgainst',
       text: 'GA',
       sort: true,
-    },
-    ];
+    }];
 
     return (
       <div className={styles.wrapper}>
         <div className={styles.buttons}>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton variant="secondary" value={1} style={{ marginRight: '5px', borderRadius: '4px' }} onChange={this.fetchLeague}>Hela ligan</ToggleButton>
-            <ToggleButton variant="secondary" value={2} style={{ borderRadius: '4px' }} onChange={this.fetchConference}>Conference</ToggleButton>
+            <ToggleButton variant="secondary" value={1} style={{ marginRight: '5px', borderRadius: '4px' }} onChange={this.showLeague}>Hela ligan</ToggleButton>
+            <ToggleButton variant="secondary" value={2} style={{ borderRadius: '4px' }} onChange={this.showConference}>Konferenser</ToggleButton>
           </ToggleButtonGroup>
         </div>
         {this.state.showLeague ? (
           <BootstrapTable
             bootstrap4
             classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
-            keyField="key"
-            data={leagueStandings}
+            keyField="team.id"
+            data={byLeague}
             columns={leagueColumns}
             defaultSorted={defaultSorted}
           />
         ) : (
           <Fragment>
-            <h2>Western Conference</h2>
+            <h3>Västra konferensen</h3>
             <BootstrapTable
               bootstrap4
               classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
-              keyField="id"
-              data={westernStandings}
+              keyField="team.id"
+              data={byWestern}
               columns={westernColumns}
               defaultSorted={defaultSorted}
             />
-            <h2>Eastern Conference</h2>
+            <h3>Östra konferensen</h3>
             <BootstrapTable
               bootstrap4
               classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
-              keyField="id"
-              data={easternStandings}
+              keyField="team.id"
+              data={byEastern}
               columns={easternColumns}
               defaultSorted={defaultSorted}
             />
