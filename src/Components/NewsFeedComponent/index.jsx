@@ -52,7 +52,6 @@ class NewsFeedComponent extends Component {
             <hr />
           </div>
         ))}
-
       </div>
     );
   }

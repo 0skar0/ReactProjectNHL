@@ -8,6 +8,7 @@ import styles from './StandingsComponent.module.css';
 
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable no-nested-ternary */
 export default class StandingsComponent extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ export default class StandingsComponent extends Component {
       byWestern: [],
       byEastern: [],
       showLeague: true,
+      showWestern: false,
     };
   }
 
@@ -67,8 +69,16 @@ export default class StandingsComponent extends Component {
   }
 
   // Toggle function as above - displaying the conference standings
-  showConference = () => {
+  showWestern = () => {
     this.setState({
+      showWestern: true,
+      showLeague: false,
+    });
+  }
+
+  showEastern = () => {
+    this.setState({
+      showWestern: false,
       showLeague: false,
     });
   }
@@ -227,67 +237,80 @@ export default class StandingsComponent extends Component {
         <div className={styles.buttons}>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
             <ToggleButton variant="secondary" value={1} style={{ marginRight: '5px', borderRadius: '4px' }} onChange={this.showLeague}>Hela ligan</ToggleButton>
-            <ToggleButton variant="secondary" value={2} style={{ borderRadius: '4px' }} onChange={this.showConference}>Konferenser</ToggleButton>
+            <ToggleButton variant="secondary" value={2} style={{ marginRight: '5px', borderRadius: '4px' }} onChange={this.showWestern}>Västra konferensen</ToggleButton>
+            <ToggleButton variant="secondary" value={3} style={{ borderRadius: '4px' }} onChange={this.showEastern}>Östra konferensen</ToggleButton>
           </ToggleButtonGroup>
         </div>
-        {this.state.showLeague ? (
-          <BootstrapTable
-            bootstrap4
-            classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
-            keyField="team.id"
-            data={byLeague}
-            columns={leagueColumns}
-            defaultSorted={defaultSorted}
-          />
-        ) : (
-          <Fragment>
-            <h3>Västra konferensen</h3>
+        {this.state.showLeague
+          ? (
             <BootstrapTable
               bootstrap4
               classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
               keyField="team.id"
-              data={byWestern}
-              columns={westernColumns}
+              data={byLeague}
+              columns={leagueColumns}
               defaultSorted={defaultSorted}
             />
-            <h3>Östra konferensen</h3>
-            <BootstrapTable
-              bootstrap4
-              classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
-              keyField="team.id"
-              data={byEastern}
-              columns={easternColumns}
-              defaultSorted={defaultSorted}
-            />
-          </Fragment>
-        )}
+          ) : (this.state.showWestern ? (
+            <Fragment>
+              <h3>Västra konferensen</h3>
+              <BootstrapTable
+                bootstrap4
+                classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
+                keyField="team.id"
+                data={byWestern}
+                columns={westernColumns}
+                defaultSorted={defaultSorted}
+              />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <h3>Östra konferensen</h3>
+              <BootstrapTable
+                bootstrap4
+                classes="table text-center table-hover table-bordered table-striped table-dark table-borderless"
+                keyField="team.id"
+                data={byEastern}
+                columns={easternColumns}
+                defaultSorted={defaultSorted}
+              />
+            </Fragment>
+          )
+          )}
         <h4>Förkortningar:</h4>
         <h5>
           <strong>GP: </strong>
+
             Spelade matcher
         </h5>
         <h5>
           <strong>W: </strong>
+
             Vinster
         </h5>
         <h5>
           <strong>L: </strong>
+
             Förluster
         </h5>
         <h5>
           <strong>OT: </strong>
+
             Overtime
         </h5>
         <h5>
           <strong>Points: </strong>
+
             Poäng
         </h5>
         <h5>
           <strong>G: </strong>
+
             Mål
         </h5>
         <h5>
           <strong>GA: </strong>
+
             Insläppta mål
         </h5>
       </div>
