@@ -134,7 +134,7 @@ class PlayersTableComponent extends Component {
       sort: true,
     }, {
       dataField: 'stats[0].splits[0].stat.games',
-      text: 'Spelade Matcher',
+      text: 'Matcher',
       sort: true,
     }, {
       dataField: 'stats[0].splits[0].stat.goals',
