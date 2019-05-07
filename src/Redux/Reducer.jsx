@@ -7,6 +7,13 @@ export default (state = {}, action) => {
           ...action.players,
         ],
       });
+    case 'ADD_GAMES':
+      return ({
+        ...state,
+        games: [
+          ...action.games,
+        ],
+      });
     case 'FETCH_LOADING':
       return ({
         ...state,
@@ -17,7 +24,6 @@ export default (state = {}, action) => {
         ...state,
         error: action.error,
       });
-
     default:
       return state;
   }

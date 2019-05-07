@@ -13,6 +13,7 @@ const store = createStore(
   reducer,
   {
     players: [],
+    games: [],
     loading: false,
     error: false,
   },
