@@ -63,7 +63,7 @@ export const fetchGames = url => (dispatch) => {
       let counter = 0;
       for (let i = 0; i < results.length; i += 1) {
         for (let x = 0; x < results[i].games.length; x += 1) {
-          if (counter < 30) {
+          if (counter < 28) {
             games.push(results[i].games[x]);
             counter += 1;
           }
