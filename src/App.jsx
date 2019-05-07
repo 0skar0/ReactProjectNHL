@@ -36,7 +36,7 @@ class App extends Component {
             right: 0,
           }),
         }}
-        text="Loading your content..."
+        text="Laddar innehåll..."
       >
         <div className="App">
           <Fragment>
