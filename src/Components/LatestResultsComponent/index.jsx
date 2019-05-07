@@ -60,7 +60,7 @@ class LatestResultsComponent extends Component {
         {error && <p>Error fetching.</p>}
         <div className={`${styles.row} row`}>
           {games.map(game => (
-            <div key={game.gamePk} className="col-lg-2">
+            <div key={game.gamePk} className="col-lg-3">
               <Card className={styles.card} bg="dark" text="white">
                 <Card.Body>
                   <Card.Title>
