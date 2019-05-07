@@ -2,8 +2,7 @@ Table {
   text-align: center;
 }
 .tableWrapper {
-  border: 2px solid #eee;
-  padding: 10px 5px 10px 5px;
+  margin: 2rem 0 1rem 0;
 }
 
 .borderBottom {

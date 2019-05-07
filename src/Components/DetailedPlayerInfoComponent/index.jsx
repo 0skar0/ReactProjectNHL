@@ -55,6 +55,13 @@ class DetailedPlayerInfoComponent extends Component {
 
     const reverseStatsArray = detailedPlayerInfo.people[0].stats[0].splits;
 
+    // Inserting an hyphen between years in season string.
+    const insertFunc = (str, txt = '-', pos = 4) => {
+      const text = str.slice(0, pos);
+      const text2 = str.slice(pos);
+      return text + txt + text2;
+    };
+
     // Changing the order of the array so that the most recent season displays atop.
     const compare = (a, b) => {
       const seasonA = a.season;
@@ -70,11 +77,12 @@ class DetailedPlayerInfoComponent extends Component {
 
     reverseStatsArray.sort(compare);
 
+    const insertHyphen = reverseStatsArray.map(year => insertFunc(year.season));
+
     const playerPosition = detailedPlayerInfo.people[0].primaryPosition.type;
 
     return (
       <div className={styles.tableWrapper}>
-        <h5>Statistik</h5>
         <Table striped borderless hover variant="dark" className={styles.table}>
           <thead className="sticky-top">
             {playerPosition === 'Goalie'
@@ -117,7 +125,7 @@ class DetailedPlayerInfoComponent extends Component {
           <tbody>
             {playerPosition === 'Goalie' ? detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
               <tr key={i} className={styles.borderBottom}>
-                <td>{player.season}</td>
+                <td>{insertHyphen[i]}</td>
                 <td>{player.team.name}</td>
                 <td>{player.league.name}</td>
                 <td>{player.stat.games}</td>
@@ -129,7 +137,7 @@ class DetailedPlayerInfoComponent extends Component {
               </tr>
             )) : detailedPlayerInfo.people[0].stats[0].splits.map((player, i) => (
               <tr key={i} className={styles.borderBottom}>
-                <td>{player.season}</td>
+                <td>{insertHyphen[i]}</td>
                 <td>{player.team.name}</td>
                 <td>{player.league.name}</td>
                 <td>{player.stat.pim}</td>
