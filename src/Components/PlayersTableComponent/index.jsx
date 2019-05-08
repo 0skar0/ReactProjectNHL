@@ -98,6 +98,7 @@ class PlayersTableComponent extends Component {
     this.textFilter('Defenseman');
   }
 
+  // Text filter used for filtering out certain values in our table
   filterGoalies = () => {
     this.setState({
       showGoalie: true,
