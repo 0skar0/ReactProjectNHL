@@ -31,7 +31,7 @@ class DetailedPlayerInfoComponent extends Component {
     };
   }
 
-  // Fetching data from NHL API.
+  // Fetching data from NHL API and storing it to our local state.
   componentDidMount() {
     const specificPlayerID = this.props.match.params.cell;
 
@@ -55,7 +55,7 @@ class DetailedPlayerInfoComponent extends Component {
 
     const reverseStatsArray = detailedPlayerInfo.people[0].stats[0].splits;
 
-    // Inserting an hyphen between years in season string.
+    // Inserting an hyphen between two years in season string.
     const insertFunc = (str, txt = '-', pos = 4) => {
       const text = str.slice(0, pos);
       const text2 = str.slice(pos);

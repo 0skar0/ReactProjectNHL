@@ -21,7 +21,8 @@ class LatestResultsComponent extends Component {
 
   /* eslint-disable react/destructuring-assignment */
   /* eslint-disable max-len */
-  // Runs when the component is mounted to the DOM
+
+  // Fetching data from the NHL API with two parameters based on todays date.
   componentDidMount() {
     const today = new Date();
     today.setDate(today.getDate() + 7);
@@ -64,12 +65,12 @@ class LatestResultsComponent extends Component {
               <Card className={styles.card} bg="dark" text="white">
                 <Card.Body>
                   <Card.Title>
-                    <img src={this.getLogo(game.teams.home.team.id)} alt="" />
+                    <img src={this.getLogo(game.teams.home.team.id)} alt="Laglogotyp" />
                     {this.getAbbrevation(game.teams.home.team.id)}
                     {game.teams.home.score || game.teams.away.score !== 0 ? <span>{game.teams.home.score}</span> : <span />}
                   </Card.Title>
                   <Card.Title>
-                    <img src={this.getLogo(game.teams.away.team.id)} alt="" />
+                    <img src={this.getLogo(game.teams.away.team.id)} alt="Laglogotyp" />
                     {this.getAbbrevation(game.teams.away.team.id)}
                     {game.teams.home.score || game.teams.away.score !== 0 ? <span>{game.teams.away.score}</span> : <span />}
                   </Card.Title>

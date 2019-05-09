@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './NavbarComponent.module.css';
 import logo from '../../Assets/nhl-logo.png';
 
+// Component that renders a navigation bar.
 class NavbarComponent extends Component {
   render() {
     return (

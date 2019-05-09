@@ -9,6 +9,8 @@ import styles from './StandingsComponent.module.css';
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-nested-ternary */
+
+// Component that renders team standings.
 export default class StandingsComponent extends Component {
   constructor(props) {
     super(props);
@@ -68,7 +70,7 @@ export default class StandingsComponent extends Component {
     });
   }
 
-  // Toggle function as above - displaying the conference standings
+  // Toggle function as above - displaying the western conference standings
   showWestern = () => {
     this.setState({
       showWestern: true,
@@ -76,6 +78,7 @@ export default class StandingsComponent extends Component {
     });
   }
 
+  // Toggle function as above - displaying the eastern conference standings
   showEastern = () => {
     this.setState({
       showWestern: false,

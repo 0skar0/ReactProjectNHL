@@ -4,7 +4,7 @@ import axios from 'axios';
 import backupPic from '../../Assets/backup-img.jpg';
 import styles from './NewsFeedComponent.module.css';
 
-// Component that renders a news feed with articles from svenskafans.com.
+// Component that renders a news feed with articles from svenskafans.com RSS-feed.
 class NewsFeedComponent extends Component {
   constructor(props) {
     super(props);

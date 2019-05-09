@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './FooterComponent.module.css';
 
+// Component that renders a footer on the whole application.
 class Footer extends Component {
   render() {
     return (

@@ -70,6 +70,7 @@ class SinglePlayerComponent extends Component {
   }
 }
 
+// Connects our component with the data in our Redux store
 function mapStateToProps(state) {
   return {
     players: state.players,

@@ -31,7 +31,7 @@ class GameScheduleComponent extends Component {
     };
   }
 
-  // Runs when the component is mounted to the DOM
+  // Fetching data from the NHL API with two parameters based on todays date.
   componentDidMount() {
     const today = new Date();
     const res = today.toISOString().slice(0, 10).replace(/-/g, '-');
